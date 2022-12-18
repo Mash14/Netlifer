@@ -1,0 +1,25 @@
+{% load django_bootstrap5 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Netlifer - Page Not Found</title>
+    {% block styles %}
+        {% bootstrap_css %}
+        <link rel="stylesheet" href="{% static 'css/movies.css' %}">
+    {% endblock %}
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <img src="https://webdeasy.de/wp-content/uploads/2020/06/404-pages.jpg" alt="">
+            <h3 class="text-center" style="margin-top: 20px;">Sorry that page is not available</h3>
+        </div>
+    </div>
+</body>
+</html>
