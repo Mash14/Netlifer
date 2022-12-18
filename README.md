@@ -50,7 +50,7 @@ The project is about showing the latest movies and tv-series, giving details abo
     source virtual/bin/activate
     ```
 
-- Install dependencies in the requirements.txt file
+- Install python package dependencies in the requirements.txt file
     ```
     pip install -r requirements.txt
     ```
