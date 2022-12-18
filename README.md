@@ -38,8 +38,10 @@ The project is about showing the latest movies and tv-series, giving details abo
     ```
 
 - Create an .env file in the root of the project 
+    ```
     API_KEY='<your-movie-db-api-key>'
     YOUTUBE_API_KEY='<your-youtube-api-key>'
+    ```
 
 - Create a virtual environment and run it
     ```
