@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center" style="margin-top: 10px;">Movies</h1>
+
+{% if cinema_movies %}
+<h3 class="padd-15" style="margin-top: 10px;">Movies In Cinema</h3>
+    <div class="cont">
+        
+        {% for movie in cinema_movies %}
+        <div class="cont-item">
+            <a href="{% url 'single_movie' movie.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_title}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                <div class="cont-img">
+                    <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" width="200px" height="200px">
+                </div>
+                <div class="title">
+                    {% if movie.original_title|length > 25%}
+                    <p>{{movie.original_title|slice:25}}...</p>
+                    {% else %}
+                    <p>{{movie.original_title}}</p>
+                    {% endif %}
+                </div>
+            </a>
+            <div class="type">
+                <p><small>{{movie.media_type}}</small></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <h2>No Movies Available</h2>
+{% endif %}
+
+    <br>
+    <hr>
+    <br>
+    
+{% if popular_movies %}
+<div class="slider-cont">
+    <div class="head">
+        <h3 class="title">Latest Movies</h3>
+        <div class="progress-bars">
+            
+        </div>
+    </div>
+    <div class="g-slider">
+        <div class="handle left-handle">
+            <i class="fa-solid fa-chevron-left"></i>
+        </div>
+        <div class="sliders">
+            {% for movie in popular_movies %}
+            <a href="{% url 'single_movie' movie.id%}">
+                <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_title}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+            </a>
+            {% endfor %}
+        </div>
+        <div class="handle right-handle">
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+    </div>
+</div>
+
+{% else %}
+    <h2>No Movies Available</h2>
+{% endif %}
+
+    <br>
+    <hr>
+    <br>
+
+{% if upcoming_movies %}
+<h3 class="padd-15">Upcoming Movies</h3>
+<div class="cont">
+    {% for movie in upcoming_movies %}
+    <div class="cont-item">
+        <a href="{% url 'single_movie' movie.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_title}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+            <div class="cont-img">
+                <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" width="200px" height="200px">
+            </div>
+            <div class="title">
+                {% if movie.original_title|length > 25%}
+                <p>{{movie.original_title|slice:25}}...</p>
+                {% else %}
+                <p>{{movie.original_title}}</p>
+                {% endif %}
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+    <h2>No Movies Available</h2>
+{% endif %}
+
+
+    <br>
+    <hr>
+    <br>
+
+{% if top_rated_movies %}
+        <div class="slider-cont">
+            <div class="head">
+                <h3 class="title">Top Rated Movies</h3>
+                <div class="progress-bars">
+                    
+                </div>
+            </div>
+            <div class="g-slider">
+                <div class="handle left-handle">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+                <div class="sliders">
+                    {% for movie in top_rated_movies %}
+                    <a href="{% url 'single_movie' movie.id%}">
+                    
+                        <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_title}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                        
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="handle right-handle">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+        
+{% else %}
+    <h2>No Movies Available</h2>
+{% endif %}
+
+    <br>
+    <br>
+ 
+{% include 'footer.html' %}
+
+{% endblock %}

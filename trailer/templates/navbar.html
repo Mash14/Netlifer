@@ -1,0 +1,48 @@
+{% load django_bootstrap5 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <title>Navbar</title>
+    {% block styles %}
+        {% bootstrap_css %}
+        <link rel="stylesheet" href="{% static 'css/movies.css' %}">
+    {% endblock %}
+</head>
+<body>
+<div class="container-xxl">
+    <nav class="na">
+        <div class="container-fluid">
+            <div class="navbars">
+                <div class="nav-title"><a href="{% url 'home' %}"><span class="resize">Netlifer</span></a></div>
+                <div class="item active"><a href="{% url 'home' %}" title="Home"><span class="resize">Home</span> <i class="fa fa-house"></i></a></div>
+                <div class="item"><a href="{% url 'movies' %}" title="Movies"><span class="resize">Movie</span> <i class="fa-solid fa-video"></i></a></div>
+                <div class="item"><a href="{% url 'tv_shows' %}" title="Tv-Shows"><span class="resize">Tv-Shows</span> <i class="fa-solid fa-tv"></i></a></div>
+
+                <div class="hide">
+                    <form action="{% url 'search' %}" method="get">
+                        {% csrf_token %}
+                        <input type="search" name="search_term" class="form-control" placeholder=" Search Movie or Tv Show... ">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </form>
+                    <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                </div>
+            </div>
+            <div class="show">
+                <form action="{% url 'search' %}" method="get">
+                    {% csrf_token %}
+
+                    <input type="search" name="search_term" class="form-control" placeholder="  Search Movie or Tv Show... ">
+                </form>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
