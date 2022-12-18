@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-xxl">
+<div class="movie">
+    <div class="movie-image">
+        <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}">
+    </div>
+    <div class="movie-details">
+        <h1 class="text-center">{{movie.original_title}}</h1>
+        <div class="overview padd-15">
+            <h4><span>Overview : </span></h4>
+            <p>{{movie.overview}}</p>
+        </div>
+        <h3 class="padd-15" >Trailer</h3>
+        <div class="movie-trailer padd-15">
+            
+            <iframe src="{{url}}" frameborder="0" allowfullscreen></iframe>
+            <!-- <iframe  src="https://www.youtube.com/embed/X0tOpBuYasI" frameborder="0" allowfullscreen></iframe> -->
+        </div>
+        <div class="movie-description">
+            <div class="movies-image">
+                <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}"  class="img-fluid">
+            </div>
+            <div class="movie-details-info">
+                <div class="item">
+                    <p style="width: 80%;">Budget: <span>${{movie.budget}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Movie Returns: <span>${{movie.revenue}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Rating <i class="fa-solid fa-star"></i> : <span>{{movie.vote_average}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Also known as : <span>{{movie.tagline}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Original Page : <span><a href="{{movie.homepage}}" target="_blank">Go to Homepage</a></span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Release Date: <span>{{movie.release_date}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Status: <span>{{movie.status}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Genre:
+                    <span>        
+                        {% for genre in movie.genres %}
+                            {{genre.name}},
+                        {% endfor %}
+                    </span>
+                    </p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Adult : <span>{{movie.adult}}</span></p>
+                </div>
+                
+    
+            </div>
+        </div>
+
+        {% if similar_movies %}
+        <div class="move">
+            <div class="slider-cont">
+                <div class="head">
+                    <h3 class="title">Similar Movies</h3>
+                    <div class="progress-bars">
+                        
+                    </div>
+                </div>
+                <div class="g-slider">
+                    <div class="handle left-handle">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div class="sliders">
+                        {% for movie in similar_movies %}
+                        <a href="{% url 'single_movie' movie.id%}">
+                        
+                            <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_title}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                            
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class="handle right-handle">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h2 class="padd-15">No Movies Available</h2>
+    {% endif %}
+    </div>
+</div>
+</div>    
+
+
+{% endblock %}
