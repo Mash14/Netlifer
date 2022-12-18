@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center" style="margin-top: 10px;">Tv Shows</h1>
+
+{% if trending_tv_shows %}
+<h2 class="padd-15">Trending Tv Shows</h2>
+    <div class="cont">
+        {% for tv_show in trending_tv_shows %}
+        <div class="cont-item">
+            <a href="{% url 'single_tv_show' tv_show.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{tv_show.original_name}}</h3><p>{{tv_show.overview|slice:300}}...</p><p style='text-align:right'>Rating {{tv_show.vote_average}}</p>">
+                <div class="cont-img">
+                    <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}"  width="200px" height="200px">
+                </div>
+                <div class="title">
+                    {% if tv_show.original_name|length > 25%}
+                    <p>{{tv_show.original_name|slice:25}}...</p>
+                    {% else %}
+                    <p>{{tv_show.original_name}}
+                    {% endif %}
+                </div>
+            </a>
+            <div class="type">
+                <p><small>{{tv_show.media_type}}</small></p>
+            </div>
+        </div>
+        
+        
+        {% endfor %}
+    </div>
+{% else %}
+    <h2>No Tv Available</h2>
+{% endif %}
+
+<!-- <br>
+<hr>
+<br>
+
+{% if airing_today_tv_shows %}
+    <div class="slider-cont">
+        <div class="head">
+            <h3 class="title">Airing Today Tv Shows</h3>
+            <div class="progress-bars">
+                
+            </div>
+        </div>
+        <div class="g-slider">
+            <div class="handle left-handle">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div class="sliders">
+                {% for tv_show in airing_today_tv_shows %}
+                <a href="{% url 'single_tv_show' tv_show.id%}">
+                
+                    <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}"  width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{tv_show.original_name}}</h3><p>{{tv_show.overview|slice:300}}...</p><p style='text-align:right'>Rating {{tv_show.vote_average}}</p>">
+                    
+                </a>
+                {% endfor %}
+            </div>
+            <div class="handle right-handle">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+    
+{% else %}
+<h2>No Movies Available</h2>
+{% endif %} -->
+    <br>
+    <hr>
+    <br>
+
+{% if on_air_tv_shows %}
+    <div class="slider-cont">
+        <div class="head">
+            <h3 class="title">On Air Tv Shows</h3>
+            <div class="progress-bars">
+                
+            </div>
+        </div>
+        <div class="g-slider">
+            <div class="handle left-handle">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div class="sliders">
+                {% for tv_show in on_air_tv_shows %}
+                <a href="{% url 'single_tv_show' tv_show.id%}">
+                
+                    <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}"  width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{tv_show.original_name}}</h3><p>{{tv_show.overview|slice:300}}...</p><p style='text-align:right'>Rating {{tv_show.vote_average}}</p>">
+                    
+                </a>
+                {% endfor %}
+            </div>
+            <div class="handle right-handle">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+    
+{% else %}
+<h2>No Tv Shows Available</h2>
+{% endif %}
+
+    <br>
+    <hr>
+    <br>
+
+{% if popular_tv_shows %}
+    <h2 class="padd-15">Popular Tv Shows</h2>
+    <div class="cont">
+        {% for tv_show in popular_tv_shows %}
+        <div class="cont-item">
+            <a href="{% url 'single_tv_show' tv_show.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{tv_show.original_name}}</h3><p>{{tv_show.overview|slice:300}}...</p><p style='text-align:right'>Rating {{tv_show.vote_average}}</p>">
+                <div class="cont-img">
+                    <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}"  width="200px" height="200px">
+                </div>
+                <div class="title">
+                    {% if tv_show.original_name|length > 25%}
+                    <p>{{tv_show.original_name|slice:25}}...</p>
+                    {% else %}
+                    <p>{{tv_show.original_name}}
+                    {% endif %}
+                </div>
+            </a>
+            <div class="type">
+                <p><small>{{tv_show.media_type}}</small></p>
+            </div>
+        </div>
+        
+        
+        {% endfor %}
+    </div>
+{% else %}
+    <h2>No Tv Available</h2>
+{% endif %}
+
+
+    <br>
+    <hr>
+    <br>
+
+{% if top_rated_tv_shows %}
+    <div class="slider-cont">
+        <div class="head">
+            <h3 class="title">Top Rated Tv Shows</h3>
+            <div class="progress-bars">
+                
+            </div>
+        </div>
+        <div class="g-slider">
+            <div class="handle left-handle">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div class="sliders">
+                {% for tv_show in top_rated_tv_shows %}
+                <a href="{% url 'single_tv_show' tv_show.id%}">
+                
+                    <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}"  width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{tv_show.original_name}}</h3><p>{{tv_show.overview|slice:300}}...</p><p style='text-align:right'>Rating {{tv_show.vote_average}}</p>">
+                    
+                </a>
+                {% endfor %}
+            </div>
+            <div class="handle right-handle">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+    
+{% else %}
+<h2>No Tv Shows Available</h2>
+{% endif %}
+
+    <br>
+    <br>
+ 
+{% include 'footer.html' %}
+
+{% endblock %}

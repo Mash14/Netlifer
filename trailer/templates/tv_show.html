@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="movie">
+    <div class="movie-image">
+        <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}" alt="{{tv_show.original_title}}">
+    </div>
+    <div class="movie-details">
+        <h1 class="text-center">{{tv_show.original_name}}</h1>
+    
+        <div class="overview padd-15">
+            <h4><span>Overview : </span></h4>
+            <p>{{tv_show.overview}}</p>
+        </div>
+
+        <h3 class="padd-15" >Trailer</h3>
+        <div class="movie-trailer padd-15">  
+            <iframe src="{{url}}" frameborder="0" allowfullscreen></iframe>
+            <!-- <iframe  src="https://www.youtube.com/embed/X0tOpBuYasI" frameborder="0" allowfullscreen></iframe> -->
+        </div>
+        <div class="movie-description">
+            <div class="movies-image">
+                <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}" alt="{{tv_show.original_title}}" class="img-fluid">
+            </div>
+            
+            <div class="movie-details-info">
+                <p></p>
+                <div class="item">
+                    <p style="width: 80%;">First Aired On : <span>{{tv_show.first_air_date}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Last Aired On : <span>{{tv_show.last_air_date}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Seasons : <span>{{tv_show.number_of_seasons}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Episodes : <span>{{tv_show.number_of_episodes}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Rating <i class="fa-solid fa-star"></i> : <span>{{tv_show.vote_average}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Genre : <span>
+                        {% for genre in tv_show.genres %}
+                            {{genre.name}},
+                        {% endfor %}
+                    </span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Episode run time : 
+                        <span>
+                            {% if tv_show.episode_run_time|length > 1  %}
+                                {% for tv in tv_show.episode_run_time %}
+                                    {{tv}} min,
+                                {% endfor %}
+                            {% else %}
+                                {% for tv in tv_show.episode_run_time %}
+                                    {{tv}} 
+                                {% endfor %}
+                            {% endif %}
+                        </span>
+                    </p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">
+                        Original Page : 
+                        <span>
+                            <a href="{{tv_show.homepage}}" target="_blank">Go to Homepage</a>
+                        </span>
+                    </p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Status : <span>{{tv_show.status}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Show type : <span>{{tv_show.type}}</span></p>
+                </div>
+                <div class="item">
+                    <p style="width: 80%;">Adult : <span>{{tv_show.adult}}</span></p>
+                </div>
+            </div>
+        </div>
+
+        {% if similar_tv_shows %}
+        <div class="move">
+            <div class="slider-cont">
+                <div class="head">
+                    <h3 class="title">Similar Tv Shows</h3>
+                    <div class="progress-bars">
+                        
+                    </div>
+                </div>
+                <div class="g-slider">
+                    <div class="handle left-handle">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div class="sliders">
+                        {% for tv_show in similar_tv_shows %}
+                        <a href="{% url 'single_tv_show' tv_show.id%}">
+                        
+                            <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}"  width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{tv_show.original_name}}</h3><p>{{tv_show.overview|slice:300}}...</p><p style='text-align:right'>Rating {{tv_show.vote_average}}</p>">
+                            
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class="handle right-handle">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h2 class="padd-15">No Similar Tv Shows Available</h2>
+    {% endif %}
+        
+    </div>
+
+</div>
+
+    
+{% endblock %}
