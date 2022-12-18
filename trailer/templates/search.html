@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{{ block.super }}
+    <h1 class="text-center">Netlifer Search</h1>
+
+    <!-- <form action="{% url 'search' %}" method="get">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" name="search_term" class="form-control">
+            <button type="submit" value="search">Search</button>
+        </div>  
+    </form> -->
+
+{% if movies %}
+<h2>Found {{movies|length}} results for search term "{{search_term}}"</h2>
+    <div class="cont" id="t_all">
+      
+        {% for movie in movies %}
+            <div class="cont-item">  
+                
+                {% if movie.media_type == 'tv' %}
+                <a href="{% url 'single_tv_show' movie.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_name}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                    <div class="cont-img">
+                        <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}"  width="200px" height="200px">
+                    </div>
+                    <div class="title">
+                        {% if movie.original_name|length > 25%}
+                        <p>{{movie.original_name|slice:25}}...</p>
+                        {% else %}
+                        <p>{{movie.original_name}}</p>
+                        {% endif %}
+                    </div>
+                </a>
+                {% else %}
+                <a href="{% url 'single_movie' movie.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h4>{{movie.original_title}}</h4><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                    <div class="cont-img">
+                        <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}"  width="200px" height="200px">
+                    </div>
+                    <div class="title">
+                        {% if movie.original_title|length > 25%}
+                        <p>{{movie.original_title|slice:25}}...</p>
+                        {% else %}
+                        <p>{{movie.original_title}}</p>
+                        {% endif %}
+                    </div>
+                </a>
+                {% endif %}
+            
+                
+                <div class="type">
+                    <p><small class="text-muted">{{movie.media_type}}</small></p>
+                </div>
+            </div>  
+        {% endfor %}
+    </div>
+
+{% else %}
+    <h2>Found zero results for search term "{{search_term}}"</h2>
+{% endif %}
+
+<!-- {% if movies %}
+    <div><a class="btn btn-primary" href="{% url 'search' %}?page={{one}}&search_term={{search_term}}">1</a></div>
+    <div><a class="btn btn-primary" href="{% url 'search' %}?page={{two}}&search_term={{search_term}}">2</a></div>
+    <div><a class="btn btn-primary" href="{% url 'search' %}?page=3&search_term={{search_term}}">3</a></div>
+    <div><a class="btn btn-primary" href="{% url 'search' %}?page=4&search_term={{search_term}}">4</a></div>
+    <div><a class="btn btn-primary" href="{% url 'search' %}?page=5&search_term={{search_term}}">5</a></div>
+{% endif %} -->
+
+{% include 'footer.html' %}
+{% endblock %}
