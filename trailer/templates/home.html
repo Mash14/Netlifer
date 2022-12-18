@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{{ block.super }}
+    <h1 class="text-center">Netlifer</h1>
+
+    <!-- <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+        <form action="{% url 'search' %}" method="get">
+            {% csrf_token %}
+            <div class="formz">
+                <input type="text" name="search_term" class="formz-item" placeholder="    Search Movie or Tv Show..">
+                <button type="submit" class="btn btn-outline-success">Search</button>
+            </div>  
+        </form>
+        </div>
+        <div class="col-md-1"></div>
+    </div> -->
+    
+
+    <h2 class="padd-15" style="margin-bottom: 10px;">What's Trending</h2>
+    <div class="padd-15">
+        <button id="b_all" class="btn btn-outline-danger" title="Trending Movies And Tv Shows">Trending</button>
+        <button id="b_movies" class="btn btn-outline-warning" title="Trending Movies">Movies</button>
+        <button id="b_tv" class="btn btn-outline-info" title="Trending Tv Shows">Tv Shows</button>
+    </div>
+    
+
+    {% if trending_movies_shows %}
+    <div class="cont" id="t_all">
+      
+        {% for movie in trending_movies_shows %}
+            <div class="cont-item">  
+                
+                {% if movie.media_type == 'tv' %}
+                <a href="{% url 'single_tv_show' movie.id %}" >
+                    <div class="cont-img">
+                        <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}"  width="200px" height="200px" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-container=".cont-img" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_name}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                    </div>
+                    <div class="title">
+                        {% if movie.original_name|length > 25%}
+                        <p>{{movie.original_name|slice:25}}...</p>
+                        {% else %}
+                        <p>{{movie.original_name}}</p>
+                        {% endif %}
+                    </div>
+                </a>
+                {% else %}
+                <a href="{% url 'single_movie' movie.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{movie.original_title}}</h3><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                    <div class="cont-img">
+                        <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}"  width="200px" height="200px">
+                    </div>
+                    <div class="title">
+                        {% if movie.original_title|length > 25%}
+                        <p>{{movie.original_title|slice:25}}...</p>
+                        {% else %}
+                        <p>{{movie.original_title}}</p>
+                        {% endif %}
+                    </div>
+                </a>
+                {% endif %}
+            
+                
+                <div class="type">
+                    <p><small class="text-muted">{{movie.media_type}}</small></p>
+                </div>
+            </div>  
+        {% endfor %}
+    </div>
+
+    {% else %}
+        <h2>No Movies and Tv Shows Available</h2>
+    {% endif %}
+    
+    {% if trending_movies %}
+    <div class="cont" id="t_movies">
+        {% for movie in trending_movies %}
+        <div class="cont-item">
+            <a href="{% url 'single_movie' movie.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h4>{{movie.original_title}}</h4><p>{{movie.overview|slice:300}}...</p><p style='text-align:right'>Rating {{movie.vote_average}}</p>">
+                <div class="cont-img">
+                    <img src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}"  width="200px" height="200px">
+                </div>
+                <div class="title">
+                    {% if movie.original_title|length > 25%}
+                    <p>{{movie.original_title|slice:25}}...</p>
+                    {% else %}
+                    <p>{{movie.original_title}}</p>
+                    {% endif %}
+                </div>
+            </a>
+            <div class="type">
+                <p><small>{{movie.media_type}}</small></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+        <h2>No Movies Available</h2>
+    {% endif %}
+    
+    {% if trending_tv_shows %}
+    <div class="cont" id="t_tv">
+        {% for tv_show in trending_tv_shows %}
+        <div class="cont-item">
+            <a href="{% url 'single_tv_show' tv_show.id %}" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="<h3>{{tv_show.original_name}}</h3><p>{{tv_show.overview|slice:300}}...</p><p style='text-align:right'>Rating {{tv_show.vote_average}}</p>">
+                <div class="cont-img">
+                    <img src="http://image.tmdb.org/t/p/w500/{{tv_show.poster_path}}"  width="200px" height="200px">
+                </div>
+                <div class="title">
+                    {% if tv_show.original_name|length > 25%}
+                    <p>{{tv_show.original_name|slice:25}}...</p>
+                    {% else %}
+                    <p>{{tv_show.original_name}}
+                    {% endif %}
+                </div>
+            </a>
+            <div class="type">
+                <p><small>{{tv_show.media_type}}</small></p>
+            </div>
+        </div>
+        
+        
+        {% endfor %}
+    </div>
+    {% else %}
+        <h2>No Tv Available</h2>
+    {% endif %}
+
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
