@@ -117,4 +117,13 @@ def single_movie(request,movie_id):
         'q' :  movie['original_title'] + ' official trailer',
     }
 
+    response = requests.get(youtube_url,params=params)
+    data = response.json()
     
+    id = data['items'][0]['id']['videoId']
+    url = f'https://www.youtube.com/embed/{id}'
+
+    title = f"{movie['original_title']}"
+    
+    return render(request, 'movie.html', {'movie':movie,'similar_movies':similar_movies,'url':url,'title':title})
+
