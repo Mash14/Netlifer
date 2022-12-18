@@ -208,3 +208,7 @@ def search(request):
 
     return render(request,'search.html',{'movies':movies,'search_term':search_term,'title':title})
 
+
+def error_404_view(request,exception):
+
+    return render(request,'404.html')
